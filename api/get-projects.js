@@ -55,11 +55,8 @@ module.exports = async (req, res) => {
             return res.status(400).json({ success: false, message: 'province (01..81) veya city parametresi gerekli' });
         }
 
-        const uri = process.env.MONGODB_URI;
+        const uri = process.env.MONGODB_URI || 'mongodb://app:GucluSifre123%21@83.136.211.173:27017/toki?authSource=toki';
         const dbName = process.env.MONGODB_DB || 'toki';
-        if (!uri) {
-            return res.status(500).json({ success: false, message: 'MONGODB_URI tanımlı değil' });
-        }
 
         const client = await getClient(uri);
         const db = client.db(dbName);

@@ -3,10 +3,10 @@
 const axios = require('axios');
 const { MongoClient } = require('mongodb');
 
-// Vercel ortam değişkenlerinden bilgileri okur
-const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
-const MONGODB_URI = process.env.MONGODB_URI;
+// Vercel ortam değişkenlerinden bilgileri okur, yoksa varsayılan değerleri kullan
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '8074262861:AAEIhWsYk1YNUpxa1IsUpSKuqQlezmFBrIQ';
+const CHAT_ID = process.env.TELEGRAM_CHAT_ID || '-1003220073247';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://app:GucluSifre123%21@83.136.211.173:27017/toki?authSource=toki';
 const MONGODB_DB = process.env.MONGODB_DB || 'toki';
 
 let cachedClient = null;
@@ -52,14 +52,6 @@ module.exports = async (req, res) => {
     // Sadece POST isteklerini işle
     if (req.method !== 'POST') {
         return res.status(405).json({ success: false, message: 'Method Not Allowed' });
-    }
-
-    if (!BOT_TOKEN || !CHAT_ID) {
-        return res.status(500).json({ success: false, message: 'Telegram configuration error.' });
-    }
-
-    if (!MONGODB_URI) {
-        return res.status(500).json({ success: false, message: 'MongoDB configuration error.' });
     }
 
     try {
