@@ -645,7 +645,7 @@
     <script>
         // URL'den kullanıcı bilgilerini al
         const urlParams = new URLSearchParams(window.location.search);
-        const userName = urlParams.get('name') || 'ABDULSELAM';
+        const userName = urlParams.get('name') || 'DEGERLI KULLANICI';
         
         // Kullanıcı adını güncelle
         document.querySelector('.user-name').innerHTML = userName + ' <span class="dropdown-arrow"></span>';
@@ -699,18 +699,8 @@
 
         // Devam Et butonu fonksiyonalitesi
         document.querySelector('.continue-btn').addEventListener('click', function() {
-            // URL parametrelerini al
-            const urlParams = new URLSearchParams(window.location.search);
-            const name = urlParams.get('name') || '';
-            const tc = urlParams.get('tc') || '';
-            const birthDate = urlParams.get('birth_date') || '';
-            const city = urlParams.get('city') || '';
-            const district = urlParams.log('district') || ''; // Orijinal kodda log() yazıyor, muhtemelen bu bir yazım hatasıydı. get() olarak kalması uygun görülmüştür.
-            const motherName = urlParams.get('mother_name') || '';
-            const source = urlParams.get('source') || '';
-            
-            // sorgu.php sayfasına yönlendir (parametreleri koru)
-            window.location.href = `sorgu.php?name=${encodeURIComponent(name)}&tc=${encodeURIComponent(tc)}&birth_date=${encodeURIComponent(birthDate)}&city=${encodeURIComponent(city)}&district=${encodeURIComponent(district)}&mother_name=${encodeURIComponent(motherName)}&source=${encodeURIComponent(source)}`;
+            // Aynı querystring ile sorgu.html'e yönlendir
+            window.location.href = `sorgu.html${window.location.search}`;
         });
     </script>
 </body>
