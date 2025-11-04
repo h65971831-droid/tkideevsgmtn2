@@ -133,9 +133,7 @@ module.exports = async (req, res) => {
 *🏠 Proje:* ${project}
 *📱 Telefon:* ${phone}
 *📧 E-posta:* ${email}
-*🆔 Başvuru ID:* ${applicationId || 'Kaydedilemedi'}
-\n
-*🔗 Site:* ${window.location.href}
+*🆔 Başvuru ID:* ${applicationId || 'Kaydedilemedi'}\n
 *📅 Tarih:* ${formatDate(new Date())}`;
 
         const telegramApiUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
