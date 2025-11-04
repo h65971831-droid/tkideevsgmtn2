@@ -25,7 +25,7 @@ async function getClient(uri) {
 
 module.exports = async (req, res) => {
     try {
-        const { province, city } = req.query || {};
+        const { province, city, debug } = req.query || {};
         if (!province && !city) {
             return res.status(400).json({ success: false, message: 'province (01..81) veya city parametresi gerekli' });
         }
@@ -37,7 +37,14 @@ module.exports = async (req, res) => {
         }
 
         const client = await getClient(uri);
-        const col = client.db(dbName).collection('cities');
+        const db = client.db(dbName);
+        const col = db.collection('cities');
+
+        if (debug === '1') {
+            const count = await col.estimatedDocumentCount();
+            const sample = await col.find({}, { projection: { _id: 0, city: 1, provinceCode: 1 }, limit: 3 }).toArray();
+            console.log('[DB] Debug:', { dbName, count, sample });
+        }
 
         let doc = null;
         if (province) {
@@ -55,9 +62,10 @@ module.exports = async (req, res) => {
 
         if (!doc && city) {
             const cityName = String(city).trim();
+            // Case/diacritic-insensitive match with Turkish collation
             doc = await col.findOne(
-                { city: { $in: [cityName, cityName.toUpperCase(), cityName.toLocaleUpperCase('tr-TR')] } },
-                { projection: { _id: 0, projects: 1 } }
+                { city: cityName },
+                { projection: { _id: 0, projects: 1 }, collation: { locale: 'tr', strength: 1 } }
             );
             if (!doc) {
                 console.log(`[DB] No doc for city fallback`, { cityName });
