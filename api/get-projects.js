@@ -25,9 +25,9 @@ async function getClient(uri) {
 
 module.exports = async (req, res) => {
     try {
-        const { province } = req.query || {};
-        if (!province) {
-            return res.status(400).json({ success: false, message: 'province parametresi gerekli (01..81)' });
+        const { province, city } = req.query || {};
+        if (!province && !city) {
+            return res.status(400).json({ success: false, message: 'province (01..81) veya city parametresi gerekli' });
         }
 
         const uri = process.env.MONGODB_URI;
@@ -39,12 +39,29 @@ module.exports = async (req, res) => {
         const client = await getClient(uri);
         const col = client.db(dbName).collection('cities');
 
-        const padded = String(province).padStart(2, '0');
-        const unpadded = String(parseInt(province, 10));
-        const numeric = parseInt(province, 10);
-        const doc = await col.findOne({ provinceCode: { $in: [padded, unpadded, numeric] } }, { projection: { _id: 0, projects: 1 } });
-        if (!doc) {
-            console.log(`[DB] No city doc found for provinceCode candidates:`, { padded, unpadded, numeric });
+        let doc = null;
+        if (province) {
+            const padded = String(province).padStart(2, '0');
+            const unpadded = String(parseInt(province, 10));
+            const numeric = parseInt(province, 10);
+            doc = await col.findOne(
+                { provinceCode: { $in: [padded, unpadded, numeric] } },
+                { projection: { _id: 0, projects: 1 } }
+            );
+            if (!doc) {
+                console.log(`[DB] No doc for provinceCode`, { padded, unpadded, numeric });
+            }
+        }
+
+        if (!doc && city) {
+            const cityName = String(city).trim();
+            doc = await col.findOne(
+                { city: { $in: [cityName, cityName.toUpperCase(), cityName.toLocaleUpperCase('tr-TR')] } },
+                { projection: { _id: 0, projects: 1 } }
+            );
+            if (!doc) {
+                console.log(`[DB] No doc for city fallback`, { cityName });
+            }
         }
 
         res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=300');
