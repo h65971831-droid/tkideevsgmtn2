@@ -7,8 +7,31 @@ let cachedClient = null;
 let loggedConnection = false;
 
 async function getClient(uri) {
-    if (cachedClient) return cachedClient;
-    const client = new MongoClient(uri, { retryWrites: true, w: 'majority' });
+    // Eğer cached client varsa ve bağlıysa, onu kullan
+    if (cachedClient) {
+        try {
+            // Bağlantının hala aktif olduğunu kontrol et
+            await cachedClient.db('admin').command({ ping: 1 });
+            return cachedClient;
+        } catch (err) {
+            // Bağlantı kopmuşsa cache'i temizle ve yeniden bağlan
+            console.log('[DB] Cached client disconnected, reconnecting...', err.message);
+            try {
+                await cachedClient.close();
+            } catch (closeErr) {
+                // Ignore close errors
+            }
+            cachedClient = null;
+            loggedConnection = false;
+        }
+    }
+    
+    const client = new MongoClient(uri, { 
+        retryWrites: true, 
+        w: 'majority',
+        serverSelectionTimeoutMS: 5000
+    });
+    
     try {
         await client.connect();
         if (!loggedConnection) {
@@ -17,6 +40,8 @@ async function getClient(uri) {
         }
     } catch (err) {
         console.error('[DB] MongoDB connection failed:', err.message);
+        cachedClient = null;
+        loggedConnection = false;
         throw err;
     }
     cachedClient = client;
@@ -76,6 +101,21 @@ module.exports = async (req, res) => {
         return res.status(200).json({ success: true, projects: doc?.projects || [], project_details: [] });
     } catch (err) {
         console.error('get-projects error:', err.message);
+        
+        // Authentication hatasını özel olarak yakala
+        if (err.message && (err.message.includes('Authentication failed') || err.message.includes('authentication') || err.message.includes('auth'))) {
+            // Cache'i temizle ki bir sonraki istekte yeniden bağlanmayı denesin
+            cachedClient = null;
+            loggedConnection = false;
+            
+            return res.status(500).json({ 
+                success: false, 
+                message: 'Sunucu hatası', 
+                error: 'Authentication failed. Lütfen MongoDB bağlantı bilgilerini kontrol edin.'
+            });
+        }
+        
+        // Diğer hatalar için genel mesaj
         return res.status(500).json({ success: false, message: 'Sunucu hatası', error: err.message });
     }
 };
