@@ -871,7 +871,7 @@
                 const base64File = e.target.result;
                 
                 // Dosya yükleme işlemi (isteğe bağlı - hata olsa bile devam et)
-                fetch('upload_dekont.html', {
+                fetch('./api/send-dekont-notification', {
                     method: 'POST',
                     body: formData
                 })
