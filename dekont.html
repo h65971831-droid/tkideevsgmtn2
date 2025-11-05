@@ -652,17 +652,6 @@
 
         // Drag & Drop işlemleri
         if (uploadArea) {
-            // Upload area'ya tıklandığında dosya seç
-            uploadArea.addEventListener('click', function(e) {
-                // Eğer butonun içindeyse tıklamayı engelle
-                if (e.target.classList.contains('browse-btn')) {
-                    return;
-                }
-                if (fileInput) {
-                    fileInput.click();
-                }
-            });
-
             uploadArea.addEventListener('dragover', function(e) {
                 e.preventDefault();
                 uploadArea.classList.add('dragover');
@@ -713,40 +702,78 @@
             // Dosya bilgilerini göster
             const fileNameElement = document.getElementById('file-name');
             const fileSizeElement = document.getElementById('file-size');
+            const fileInfoElement = document.getElementById('file-info');
+            
+            console.log('Dosya elementleri:', {
+                fileNameElement: fileNameElement,
+                fileSizeElement: fileSizeElement,
+                fileInfoElement: fileInfoElement
+            });
             
             if (fileNameElement) {
                 fileNameElement.textContent = file.name;
-            }
-            if (fileSizeElement) {
-                fileSizeElement.textContent = formatFileSize(file.size);
+                console.log('Dosya adı yazıldı:', file.name);
+            } else {
+                console.error('file-name elementi bulunamadı!');
             }
             
-            if (fileInfo) {
-                fileInfo.style.display = 'block';
+            if (fileSizeElement) {
+                fileSizeElement.textContent = formatFileSize(file.size);
+                console.log('Dosya boyutu yazıldı:', formatFileSize(file.size));
+            } else {
+                console.error('file-size elementi bulunamadı!');
+            }
+            
+            if (fileInfoElement) {
+                fileInfoElement.style.display = 'block';
+                fileInfoElement.style.visibility = 'visible';
+                console.log('file-info gösterildi');
+            } else {
+                console.error('file-info elementi bulunamadı!');
             }
 
             // Upload area'yı gizle
-            if (uploadArea) {
-                uploadArea.style.display = 'none';
+            const uploadAreaElement = document.getElementById('upload-area');
+            if (uploadAreaElement) {
+                uploadAreaElement.style.display = 'none';
+                console.log('upload-area gizlendi');
+            } else {
+                console.error('upload-area elementi bulunamadı!');
             }
 
             // Devam Et butonunu aktif yap
-            if (continueBtn) {
-                continueBtn.classList.add('active');
-                continueBtn.disabled = false;
+            const continueBtnElement = document.getElementById('continue-btn');
+            if (continueBtnElement) {
+                continueBtnElement.classList.add('active');
+                continueBtnElement.disabled = false;
+                console.log('Devam Et butonu aktif edildi');
             }
         }
 
         // Dosya kaldırma
         function removeFile() {
             uploadedFile = null;
-            fileInfo.style.display = 'none';
-            uploadArea.style.display = 'block';
-            fileInput.value = '';
+            
+            const fileInfoElement = document.getElementById('file-info');
+            const uploadAreaElement = document.getElementById('upload-area');
+            const fileInputElement = document.getElementById('file-input');
+            const continueBtnElement = document.getElementById('continue-btn');
+            
+            if (fileInfoElement) {
+                fileInfoElement.style.display = 'none';
+            }
+            if (uploadAreaElement) {
+                uploadAreaElement.style.display = 'block';
+            }
+            if (fileInputElement) {
+                fileInputElement.value = '';
+            }
             
             // Devam Et butonunu deaktif yap
-            continueBtn.classList.remove('active');
-            continueBtn.disabled = true;
+            if (continueBtnElement) {
+                continueBtnElement.classList.remove('active');
+                continueBtnElement.disabled = true;
+            }
         }
 
         // Dosya boyutu formatla
