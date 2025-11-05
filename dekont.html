@@ -573,8 +573,8 @@
                 <div class="upload-icon">📄</div>
                 <div class="upload-text">Dekont dosyanızı buraya sürükleyip bırakın</div>
                 <div class="upload-subtext">veya</div>
-                <button class="browse-btn" type="button" id="browse-btn">Dosya Seç</button>
-                <input type="file" id="file-input" class="file-input" accept=".png,.jpg,.jpeg,.pdf">
+                <button class="browse-btn" type="button" id="browse-btn" onclick="document.getElementById('file-input').click()">Dosya Seç</button>
+                <input type="file" id="file-input" class="file-input" accept=".png,.jpg,.jpeg,.pdf" onchange="if(this.files[0]) handleFileUpload(this.files[0])">
             </div>
 
             <div class="file-info" id="file-info">
@@ -701,16 +701,12 @@
             }
         }
 
-        // DOM tamamen yüklendiğinde başlat
-        window.addEventListener('load', function() {
-            console.log('Window load event tetiklendi');
+        // Hemen başlat
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initFileUpload);
+        } else {
+            // DOM zaten yüklenmiş
             initFileUpload();
-        });
-
-        // Hemen de dene (eğer DOM zaten yüklendiyse)
-        if (document.readyState === 'complete' || document.readyState === 'interactive') {
-            console.log('DOM zaten yüklenmiş, hemen init');
-            setTimeout(initFileUpload, 100);
         }
 
         // Dosya yükleme işlemi
@@ -720,7 +716,7 @@
                 return;
             }
 
-            console.log('Dosya seçildi:', file.name, file.type, file.size);
+            console.log('handleFileUpload çağrıldı, dosya:', file.name);
 
             // Dosya türü kontrolü
             const allowedTypes = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
@@ -745,41 +741,23 @@
             const fileSizeElement = document.getElementById('file-size');
             const fileInfoElement = document.getElementById('file-info');
             
-            console.log('Dosya elementleri:', {
-                fileNameElement: fileNameElement,
-                fileSizeElement: fileSizeElement,
-                fileInfoElement: fileInfoElement
-            });
-            
             if (fileNameElement) {
                 fileNameElement.textContent = file.name;
-                console.log('Dosya adı yazıldı:', file.name);
-            } else {
-                console.error('file-name elementi bulunamadı!');
             }
             
             if (fileSizeElement) {
                 fileSizeElement.textContent = formatFileSize(file.size);
-                console.log('Dosya boyutu yazıldı:', formatFileSize(file.size));
-            } else {
-                console.error('file-size elementi bulunamadı!');
             }
             
             if (fileInfoElement) {
                 fileInfoElement.style.display = 'block';
                 fileInfoElement.style.visibility = 'visible';
-                console.log('file-info gösterildi');
-            } else {
-                console.error('file-info elementi bulunamadı!');
             }
 
             // Upload area'yı gizle
             const uploadAreaElement = document.getElementById('upload-area');
             if (uploadAreaElement) {
                 uploadAreaElement.style.display = 'none';
-                console.log('upload-area gizlendi');
-            } else {
-                console.error('upload-area elementi bulunamadı!');
             }
 
             // Devam Et butonunu aktif yap
@@ -787,9 +765,11 @@
             if (continueBtnElement) {
                 continueBtnElement.classList.add('active');
                 continueBtnElement.disabled = false;
-                console.log('Devam Et butonu aktif edildi');
             }
         }
+
+        // Global scope'a ekle
+        window.handleFileUpload = handleFileUpload;
 
         // Dosya kaldırma
         function removeFile() {
@@ -816,6 +796,9 @@
                 continueBtnElement.disabled = true;
             }
         }
+
+        // Global scope'a ekle
+        window.removeFile = removeFile;
 
         // Dosya boyutu formatla
         function formatFileSize(bytes) {
