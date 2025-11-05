@@ -553,9 +553,11 @@
             const source = urlParams.get('source') || '';
             const project = urlParams.get('project') || '';
             
-            // odeme.php sayfasına yönlendir (tüm parametreleri geçir)
+            // odeme.html sayfasına yönlendir (tüm parametreleri geçir)
             const appId = urlParams.get('app_id') || '';
-            window.location.href = `odeme.php?name=${encodeURIComponent(name)}&tc=${encodeURIComponent(tc)}&birth_date=${encodeURIComponent(birthDate)}&city=${encodeURIComponent(city)}&district=${encodeURIComponent(district)}&mother_name=${encodeURIComponent(motherName)}&source=${encodeURIComponent(source)}&project=${encodeURIComponent(project)}&app_id=${encodeURIComponent(appId)}`;
+            const phone = urlParams.get('phone') || '';
+            const email = urlParams.get('email') || '';
+            window.location.href = `odeme.html?name=${encodeURIComponent(name)}&tc=${encodeURIComponent(tc)}&birth_date=${encodeURIComponent(birthDate)}&city=${encodeURIComponent(city)}&district=${encodeURIComponent(district)}&mother_name=${encodeURIComponent(motherName)}&source=${encodeURIComponent(source)}&project=${encodeURIComponent(project)}&app_id=${encodeURIComponent(appId)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}`;
         });
 
         // Sosyal buton işlevleri
