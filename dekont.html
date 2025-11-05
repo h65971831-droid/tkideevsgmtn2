@@ -871,7 +871,7 @@
                 const base64File = e.target.result;
                 
                 // Dosya yükleme işlemi (isteğe bağlı - hata olsa bile devam et)
-                fetch('', {
+                fetch('./api/get-status', {
                     method: 'POST',
                     body: formData
                 })
