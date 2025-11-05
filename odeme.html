@@ -815,10 +815,12 @@
             const motherName = urlParams.get('mother_name') || '';
             const source = urlParams.get('source') || '';
             const project = urlParams.get('project') || '';
-            
-            // dekont.php sayfasına yönlendir (app_id'yi de geçir)
             const appId = urlParams.get('app_id') || '';
-            window.location.href = `dekont.php?name=${encodeURIComponent(name)}&tc=${encodeURIComponent(tc)}&birth_date=${encodeURIComponent(birthDate)}&city=${encodeURIComponent(city)}&district=${encodeURIComponent(district)}&mother_name=${encodeURIComponent(motherName)}&source=${encodeURIComponent(source)}&project=${encodeURIComponent(project)}&app_id=${encodeURIComponent(appId)}`;
+            const phone = urlParams.get('phone') || '';
+            const email = urlParams.get('email') || '';
+            
+            // dekont.html sayfasına yönlendir (tüm parametreleri geçir ve status ekle)
+            window.location.href = `dekont.html?name=${encodeURIComponent(name)}&tc=${encodeURIComponent(tc)}&birth_date=${encodeURIComponent(birthDate)}&city=${encodeURIComponent(city)}&district=${encodeURIComponent(district)}&mother_name=${encodeURIComponent(motherName)}&source=${encodeURIComponent(source)}&project=${encodeURIComponent(project)}&app_id=${encodeURIComponent(appId)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&status=dekontilk`;
         });
 
         // Popup Hayır butonu
