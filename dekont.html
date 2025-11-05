@@ -573,8 +573,8 @@
                 <div class="upload-icon">📄</div>
                 <div class="upload-text">Dekont dosyanızı buraya sürükleyip bırakın</div>
                 <div class="upload-subtext">veya</div>
-                <button class="browse-btn" type="button" id="browse-btn" onclick="document.getElementById('file-input').click()">Dosya Seç</button>
-                <input type="file" id="file-input" class="file-input" accept=".png,.jpg,.jpeg,.pdf" onchange="handleFileChange(this)">
+                <button class="browse-btn" type="button" id="browse-btn">Dosya Seç</button>
+                <input type="file" id="file-input" class="file-input" accept=".png,.jpg,.jpeg,.pdf">
             </div>
 
             <div class="file-info" id="file-info">
@@ -638,23 +638,18 @@
             
             const fileInput = document.getElementById('file-input');
             const uploadArea = document.getElementById('upload-area');
-            const fileInfo = document.getElementById('file-info');
-            const continueBtn = document.getElementById('continue-btn');
+            const browseBtn = document.getElementById('browse-btn');
 
             console.log('Elementler:', {
                 fileInput: fileInput,
                 uploadArea: uploadArea,
-                fileInfo: fileInfo,
-                continueBtn: continueBtn
+                browseBtn: browseBtn
             });
 
             // Dosya seç butonuna tıklandığında
-            const browseBtn = document.getElementById('browse-btn');
             if (browseBtn && fileInput) {
-                console.log('Browse btn bulundu, event listener ekleniyor');
                 browseBtn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
                     console.log('Browse btn tıklandı!');
                     fileInput.click();
                 });
@@ -662,22 +657,15 @@
 
             // Dosya seçildiğinde
             if (fileInput) {
-                console.log('FileInput bulundu, change event listener ekleniyor');
                 fileInput.addEventListener('change', function(e) {
                     console.log('Change event tetiklendi!');
-                    console.log('Files:', e.target.files);
-                    console.log('Files length:', e.target.files.length);
                     const file = e.target.files[0];
                     console.log('Seçilen dosya:', file);
                     if (file) {
                         console.log('handleFileUpload çağrılıyor');
                         handleFileUpload(file);
-                    } else {
-                        console.log('Dosya seçilmedi');
                     }
                 });
-            } else {
-                console.error('file-input elementi bulunamadı!');
             }
 
             // Drag & Drop işlemleri
@@ -804,24 +792,6 @@
 
         // Global scope'a ekle
         window.handleFileUpload = handleFileUpload;
-
-        // Inline onchange için wrapper fonksiyon
-        function handleFileChange(input) {
-            console.log('=== handleFileChange BAŞLADI ===');
-            console.log('Input:', input);
-            console.log('Input files:', input ? input.files : 'null');
-            
-            if (input && input.files && input.files[0]) {
-                console.log('Dosya bulundu:', input.files[0].name);
-                handleFileUpload(input.files[0]);
-            } else {
-                console.log('Dosya bulunamadı');
-                alert('Dosya seçilmedi!');
-            }
-            
-            console.log('=== handleFileChange BİTTİ ===');
-        }
-        window.handleFileChange = handleFileChange;
 
         // Dosya kaldırma
         function removeFile() {
@@ -997,7 +967,6 @@
         });
         
         console.log('=== DEKONT.HTML SCRIPT TAMAMLANDI ===');
-        console.log('handleFileChange fonksiyonu:', typeof window.handleFileChange);
         console.log('handleFileUpload fonksiyonu:', typeof window.handleFileUpload);
         console.log('removeFile fonksiyonu:', typeof window.removeFile);
     </script>
