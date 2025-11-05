@@ -1272,32 +1272,14 @@
                 document.getElementById('projects-panel').style.display = 'block';
             });
 
-            // Sözleşme linkine tıklama olayı
-            const checkboxLabel = document.querySelector('.checkbox-label strong');
-            if (checkboxLabel) {
-                checkboxLabel.addEventListener('click', function(e) {
-                    e.preventDefault(); // Checkbox'ın işaretlenmesini engelle
-                    e.stopPropagation(); // Event bubbling'i durdur
-                    
-                    // form.pdf dosyasını yeni sekmede aç
-                    window.open('form.pdf', '_blank');
-                });
-            }
-            
-            // Checkbox'a tıklama olayı - form.pdf açılsın
+            // Checkbox ve label işlemleri
             const agreementCheckbox = document.getElementById('payment-agreement');
             const continueBtn = document.getElementById('continue-btn');
+            const checkboxLabel = document.querySelector('.checkbox-label');
             
-            if (agreementCheckbox) {
-                // Checkbox'a tıklama olayı - form.pdf açılsın
-                agreementCheckbox.addEventListener('click', function(e) {
-                    // Checkbox işaretlenirken form.pdf'yi aç
-                    if (this.checked) {
-                        window.open('form.pdf', '_blank');
-                    }
-                });
-                
-                // Checkbox durumunu kontrol et
+            if (agreementCheckbox && checkboxLabel) {
+                // Label'ın varsayılan davranışı zaten checkbox'ı toggle ediyor (for attribute sayesinde)
+                // Sadece checkbox durumunu kontrol et ve Devam Et butonunu aktif/pasif yap
                 agreementCheckbox.addEventListener('change', function() {
                     if (continueBtn) {
                         if (this.checked) {
