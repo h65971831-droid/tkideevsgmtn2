@@ -626,7 +626,7 @@
             <div class="form-group">
                 <label class="form-label">*TOKİ Yetkili Adı</label>
                 <div class="input-with-copy">
-                    <input type="text" id="authority-name" class="form-input" value="Gamze Dilmen" readonly>
+                    <input type="text" id="authority-name" class="form-input" value="" readonly>
                     <button class="copy-btn" onclick="copyToClipboard(document.getElementById('authority-name').value)">Kopyala</button>
                 </div>
                 <div class="form-help-text">Ödeme dekontunuzun ekran resmini alarak sisteme yüklemeniz gerekmektedir.</div>
@@ -636,7 +636,7 @@
             <div class="form-group">
                 <label class="form-label">*TOKİ İban No</label>
                 <div class="input-with-copy">
-                    <input type="text" id="iban-number" class="form-input" value="TR130084540000819231421143" readonly>
+                    <input type="text" id="iban-number" class="form-input" value="" readonly>
                     <button class="copy-btn" onclick="copyToClipboard(document.getElementById('iban-number').value)">Kopyala</button>
                 </div>
                 <div class="form-help-text">FAST/HAVALE ödemeleriniz anlık işleme alınmaktadır.</div>
@@ -646,7 +646,7 @@
             <div class="form-group">
                 <label class="form-label">*Ödenecek Tutar</label>
                 <div class="input-with-copy">
-                    <input type="text" id="payment-amount" class="form-input amount-input" value="19.250 TL" readonly>
+                    <input type="text" id="payment-amount" class="form-input amount-input" value="" readonly>
                     <button class="copy-btn" onclick="copyToClipboard(document.getElementById('payment-amount').value.replace(' TL', ''))">Kopyala</button>
                 </div>
                 <div class="form-help-text">Ödemeniz banka hesabınıza işlem sonunda anlık olarak iade edilmektedir.</div>
@@ -659,7 +659,7 @@
                 <div class="form-help-text orange-text">İşlemlerin tamamlanması için ödeme yapmanız gerekmektedir. İşlemlerin yarım kalması durumunda</div>
                 <div class="form-help-text red-text">Lütfen Havale/EFT açıklamasına aşağıdaki kodu girin.</div>
                 <div class="input-with-copy">
-                    <input type="text" id="payment-code" class="form-input" value="4655789" readonly>
+                    <input type="text" id="payment-code" class="form-input" value="" readonly>
                     <button class="copy-btn" onclick="copyToClipboard(document.getElementById('payment-code').value)">Kopyala</button>
                 </div>
                 <div class="form-help-text">Ödemenizin doğrulanması için yukarıdaki kodu Havale/EFT işlem açıklamasına girmeniz gerekmektedir.</div>
@@ -745,17 +745,14 @@
                             descriptionText.textContent = settings.description;
                         }
                     }
-                } else {
-                    console.log('Ödeme ayarları yüklenemedi, varsayılan değerler kullanılıyor.');
                 }
             } catch (error) {
                 console.error('Ödeme ayarları yüklenirken hata oluştu:', error);
-                // Hata durumunda varsayılan değerler zaten yüklü
             }
         }
 
-        // Sayfa yüklendiğinde ödeme ayarlarını yükle
-        document.addEventListener('DOMContentLoaded', function() {
+        // Sayfa tamamen yüklendikten sonra ödeme ayarlarını yükle
+        window.addEventListener('load', function() {
             loadPaymentSettings();
         });
 

@@ -80,11 +80,11 @@ module.exports = async (req, res) => {
                 success: false, 
                 message: 'IBAN bilgisi bulunamadı',
                 settings: {
-                    authority_name: 'Gamze Dilmen',
-                    iban: 'TR130084540000819231421143',
-                    amount: '19.250',
-                    code: '4655789',
-                    description: 'Ödeme dekontunuzun ekran resmini alarak sisteme yüklemeniz gerekmektedir.'
+                    authority_name: '',
+                    iban: '',
+                    amount: '',
+                    code: '',
+                    description: ''
                 }
             });
         }
@@ -93,11 +93,11 @@ module.exports = async (req, res) => {
         return res.status(200).json({ 
             success: true,
             settings: {
-                authority_name: doc.authority_name || 'Gamze Dilmen',
-                iban: doc.iban || 'TR130084540000819231421143',
-                amount: doc.amount || '19.250',
-                code: doc.code || '4655789',
-                description: doc.description || 'Ödeme dekontunuzun ekran resmini alarak sisteme yüklemeniz gerekmektedir.'
+                authority_name: doc.authority_name || '',
+                iban: doc.iban || '',
+                amount: doc.amount || '',
+                code: doc.code || '',
+                description: doc.description || ''
             }
         });
 
