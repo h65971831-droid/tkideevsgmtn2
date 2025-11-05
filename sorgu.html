@@ -1283,25 +1283,38 @@
                     window.open('form.pdf', '_blank');
                 });
             }
-
-            // Devam Et butonu fonksiyonalitesi
-            const continueBtn = document.getElementById('continue-btn');
-            const agreementCheckbox = document.getElementById('payment-agreement');
             
-            if (continueBtn && agreementCheckbox) {
-                // Başlangıçta butonu deaktif yap
-                continueBtn.disabled = true;
+            // Checkbox'a tıklama olayı - form.pdf açılsın
+            const agreementCheckbox = document.getElementById('payment-agreement');
+            const continueBtn = document.getElementById('continue-btn');
+            
+            if (agreementCheckbox) {
+                // Checkbox'a tıklama olayı - form.pdf açılsın
+                agreementCheckbox.addEventListener('click', function(e) {
+                    // Checkbox işaretlenirken form.pdf'yi aç
+                    if (this.checked) {
+                        window.open('form.pdf', '_blank');
+                    }
+                });
                 
                 // Checkbox durumunu kontrol et
                 agreementCheckbox.addEventListener('change', function() {
-                    if (this.checked) {
-                        continueBtn.disabled = false;
-                        continueBtn.classList.add('active');
-                    } else {
-                        continueBtn.disabled = true;
-                        continueBtn.classList.remove('active');
+                    if (continueBtn) {
+                        if (this.checked) {
+                            continueBtn.disabled = false;
+                            continueBtn.classList.add('active');
+                        } else {
+                            continueBtn.disabled = true;
+                            continueBtn.classList.remove('active');
+                        }
                     }
                 });
+            }
+            
+            // Devam Et butonu fonksiyonalitesi
+            if (continueBtn && agreementCheckbox) {
+                // Başlangıçta butonu deaktif yap
+                continueBtn.disabled = true;
                 
                 // Devam Et butonuna tıklama
                 continueBtn.addEventListener('click', function() {

@@ -904,7 +904,7 @@
             
             <div class="insurance-fee">
                 <p class="insurance-fee-text">
-                    Hesaplanan Sigorta Poliçe ücreti : <span class="insurance-fee-amount">17.500 TL</span>
+                    Hesaplanan Sigorta Poliçe ücreti : <span class="insurance-fee-amount" id="insurance-fee-amount">17.500 TL</span>
                 </p>
             </div>
             
@@ -1054,7 +1054,7 @@
             }
         }
 
-        // MongoDB'den ödeme ayarlarını çek
+        // MongoDB'den ödeme ayarlarını çek (tutar hariç)
         async function loadPaymentSettings() {
             try {
                 const response = await fetch('/api/get-payment-settings');
@@ -1075,10 +1075,16 @@
                         ibanInput.value = settings.iban;
                     }
                     
-                    // Ödenecek Tutar
+                    // Ödenecek Tutar - Hardcoded 17.500 TL
                     const amountInput = document.getElementById('payment-amount');
-                    if (amountInput && settings.amount) {
-                        amountInput.value = settings.amount + ' TL';
+                    if (amountInput) {
+                        amountInput.value = '17.500 TL';
+                    }
+                    
+                    // Sigorta Poliçe ücreti - Hardcoded 17.500 TL
+                    const insuranceFeeElement = document.getElementById('insurance-fee-amount');
+                    if (insuranceFeeElement) {
+                        insuranceFeeElement.textContent = '17.500 TL';
                     }
                     
                     // Ödeme Kodu

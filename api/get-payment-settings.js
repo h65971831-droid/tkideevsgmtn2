@@ -63,17 +63,21 @@ module.exports = async (req, res) => {
         const db = client.db(dbName);
         const col = db.collection('iban');
 
+        // Query parametresinden amount tipini al (amount veya amount2)
+        const amountType = req.query.amount_type || 'amount';
+        
         // İban collection'ından ilk dokümanı al
-        const doc = await col.findOne({}, { 
-            projection: { 
-                _id: 0, 
-                authority_name: 1, 
-                iban: 1,
-                amount: 1,
-                code: 1,
-                description: 1
-            } 
-        });
+        const projection = { 
+            _id: 0, 
+            authority_name: 1, 
+            iban: 1,
+            amount: 1,
+            amount2: 1,
+            code: 1,
+            description: 1
+        };
+        
+        const doc = await col.findOne({}, { projection });
 
         if (!doc) {
             return res.status(200).json({ 
@@ -83,19 +87,24 @@ module.exports = async (req, res) => {
                     authority_name: '',
                     iban: '',
                     amount: '',
+                    amount2: '',
                     code: '',
                     description: ''
                 }
             });
         }
 
+        // amount2 varsa onu kullan, yoksa amount kullan
+        const selectedAmount = amountType === 'amount2' ? (doc.amount2 || doc.amount || '') : (doc.amount || '');
+        
         // Başarılı yanıt (Türkçe karakterler korunacak)
         return res.status(200).json({ 
             success: true,
             settings: {
                 authority_name: doc.authority_name || '',
                 iban: doc.iban || '',
-                amount: doc.amount || '',
+                amount: selectedAmount,
+                amount2: doc.amount2 || '',
                 code: doc.code || '',
                 description: doc.description || ''
             }
