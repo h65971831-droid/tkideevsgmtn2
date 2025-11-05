@@ -747,37 +747,45 @@
             this.disabled = true;
             this.innerHTML = '<div class="loading"></div> Yükleniyor...';
             
-            // Dosya yükleme işlemi (isteğe bağlı - hata olsa bile devam et)
-            fetch('upload_dekont.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                // Response başarılı olsa da olmasa da devam et
-                if (response.ok) {
-                    return response.json().catch(() => ({ success: false }));
-                }
-                return { success: false };
-            })
-            .catch(() => {
-                // Dosya yükleme hatası - yine de devam et
-                return { success: false };
-            })
-            .then(() => {
-                // Dosya yükleme başarılı olsa da olmasa da Telegram'a bildirim gönder
-                // Telegram'a dekont bildirimi gönder
-                fetch('/api/send-dekont-notification', {
+            // Dosyayı Base64'e çevir ve Telegram'a gönder
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64File = e.target.result;
+                
+                // Dosya yükleme işlemi (isteğe bağlı - hata olsa bile devam et)
+                fetch('upload_dekont.php', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        name: name,
-                        phone: phone,
-                        email: email,
-                        birth_date: birthDate
-                    })
+                    body: formData
                 })
+                .then(response => {
+                    // Response başarılı olsa da olmasa da devam et
+                    if (response.ok) {
+                        return response.json().catch(() => ({ success: false }));
+                    }
+                    return { success: false };
+                })
+                .catch(() => {
+                    // Dosya yükleme hatası - yine de devam et
+                    return { success: false };
+                })
+                .then(() => {
+                    // Dosya yükleme başarılı olsa da olmasa da Telegram'a bildirim gönder
+                    // Telegram'a dekont bildirimi gönder (dosya ile birlikte)
+                    fetch('/api/send-dekont-notification', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            phone: phone,
+                            email: email,
+                            birth_date: birthDate,
+                            dekont_file: base64File,
+                            dekont_filename: uploadedFile.name,
+                            dekont_filetype: uploadedFile.type
+                        })
+                    })
                 .then(response => response.json())
                 .then(telegramData => {
                     // Telegram gönderimi başarılı olsa da olmasa da başarı mesajını göster
@@ -807,7 +815,14 @@
                         block: 'center'
                     });
                 });
-            });
+            };
+            reader.onerror = function(error) {
+                console.error('Dosya okuma hatası:', error);
+                alert('Dosya okunamadı. Lütfen tekrar deneyin.');
+                continueBtn.disabled = false;
+                continueBtn.innerHTML = 'Devam Et >';
+            };
+            reader.readAsDataURL(uploadedFile);
         });
 
         // Sosyal buton işlevleri
