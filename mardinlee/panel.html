@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - IBAN Yönetimi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .panel-header {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-header h1 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        .logout-button {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .logout-button:hover {
+            background: #c82333;
+        }
+
+        .panel-container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            min-height: 100px;
+            resize: vertical;
+            transition: all 0.3s;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .form-textarea:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .save-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .save-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .save-button:active {
+            transform: translateY(0);
+        }
+
+        .save-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .error-message {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c33;
+        }
+
+        .success-message {
+            background: #efe;
+            border: 1px solid #cfc;
+            color: #3c3;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel-header">
+        <h1>IBAN Yönetimi</h1>
+        <button class="logout-button" id="logout-button">Çıkış Yap</button>
+    </div>
+
+    <div class="panel-container">
+        <div id="error-message" class="message error-message"></div>
+        <div id="success-message" class="message success-message"></div>
+
+        <div id="loading" class="loading">Yükleniyor...</div>
+
+        <form id="iban-form" style="display: none;">
+            <div class="form-group">
+                <label class="form-label">TOKİ Yetkili Adı *</label>
+                <input type="text" id="authority-name" class="form-input" placeholder="Örn: Gamze Dilmen" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">TOKİ IBAN No *</label>
+                <input type="text" id="iban" class="form-input" placeholder="Örn: TR12 3456 7890 1234 5678 9012 34" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Ödenecek Tutar *</label>
+                <input type="text" id="amount" class="form-input" placeholder="Örn: 22400" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Ödeme Kodu *</label>
+                <input type="text" id="code" class="form-input" placeholder="Örn: TOKI2024" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Açıklama</label>
+                <textarea id="description" class="form-textarea" placeholder="Opsiyonel açıklama"></textarea>
+            </div>
+
+            <button type="submit" class="save-button" id="save-button">
+                Kaydet
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Cookie fonksiyonları
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function deleteCookie(name) {
+            document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
+        }
+
+        // Giriş kontrolü
+        const isLoggedIn = getCookie('admin_logged_in');
+        if (isLoggedIn !== 'true') {
+            window.location.href = '/mardinlee/login.html';
+        }
+
+        // Çıkış butonu
+        document.getElementById('logout-button').addEventListener('click', function() {
+            deleteCookie('admin_logged_in');
+            deleteCookie('admin_username');
+            window.location.href = '/mardinlee/login.html';
+        });
+
+        // Mevcut IBAN bilgilerini yükle
+        async function loadIbanData() {
+            const loading = document.getElementById('loading');
+            const form = document.getElementById('iban-form');
+            
+            try {
+                const response = await fetch('/api/get-payment-settings');
+                const data = await response.json();
+                
+                loading.style.display = 'none';
+                form.style.display = 'block';
+                
+                if (data.success && data.settings) {
+                    document.getElementById('authority-name').value = data.settings.authority_name || '';
+                    document.getElementById('iban').value = data.settings.iban || '';
+                    document.getElementById('amount').value = data.settings.amount || '';
+                    document.getElementById('code').value = data.settings.code || '';
+                    document.getElementById('description').value = data.settings.description || '';
+                }
+            } catch (error) {
+                console.error('Load error:', error);
+                loading.textContent = 'Veriler yüklenirken bir hata oluştu.';
+            }
+        }
+
+        // Form submit
+        document.getElementById('iban-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const authorityName = document.getElementById('authority-name').value.trim();
+            const iban = document.getElementById('iban').value.trim();
+            const amount = document.getElementById('amount').value.trim();
+            const code = document.getElementById('code').value.trim();
+            const description = document.getElementById('description').value.trim();
+            
+            const saveButton = document.getElementById('save-button');
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
+            
+            // Mesajları temizle
+            errorMessage.classList.remove('show');
+            successMessage.classList.remove('show');
+            
+            // Butonu devre dışı bırak
+            saveButton.disabled = true;
+            saveButton.textContent = 'Kaydediliyor...';
+            
+            try {
+                const response = await fetch('/api/update-iban', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        authority_name: authorityName,
+                        iban: iban,
+                        amount: amount,
+                        code: code,
+                        description: description
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    successMessage.textContent = 'IBAN bilgileri başarıyla güncellendi!';
+                    successMessage.classList.add('show');
+                    
+                    saveButton.disabled = false;
+                    saveButton.textContent = 'Kaydet';
+                } else {
+                    errorMessage.textContent = data.message || 'Güncelleme başarısız. Lütfen tekrar deneyin.';
+                    errorMessage.classList.add('show');
+                    
+                    saveButton.disabled = false;
+                    saveButton.textContent = 'Kaydet';
+                }
+            } catch (error) {
+                console.error('Update error:', error);
+                errorMessage.textContent = 'Bir hata oluştu. Lütfen tekrar deneyin.';
+                errorMessage.classList.add('show');
+                
+                saveButton.disabled = false;
+                saveButton.textContent = 'Kaydet';
+            }
+        });
+
+        // Sayfa yüklendiğinde IBAN bilgilerini yükle
+        loadIbanData();
+    </script>
+</body>
+</html>
+
