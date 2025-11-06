@@ -775,39 +775,6 @@
             projectInfoRows[1].querySelector('.info-value').textContent = projectLocation;
         }
 
-        // Telefon numarası formatlaması
-        document.getElementById('phone-number').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, ''); // Sadece rakamları al
-            
-            if (value.length > 11) {
-                value = value.slice(0, 11); // 11 haneli sınır
-            }
-            
-            // 5 ile başlamayan numaraları kabul etme
-            if (value.length > 0 && value[0] !== '5') {
-                value = '5';
-            }
-            
-            // Formatla: 5XX XXX XX XX
-            let formatted = '';
-            if (value.length > 0) {
-                formatted = value[0]; // İlk rakam (5)
-            }
-            if (value.length > 1) {
-                formatted += value.slice(1, 3); // 2. ve 3. rakam
-            }
-            if (value.length > 3) {
-                formatted += ' ' + value.slice(3, 6); // 4-6. rakamlar
-            }
-            if (value.length > 6) {
-                formatted += ' ' + value.slice(6, 8); // 7-8. rakamlar
-            }
-            if (value.length > 8) {
-                formatted += ' ' + value.slice(8, 11); // 9-11. rakamlar
-            }
-            
-            e.target.value = formatted;
-        });
 
         // Telefon numarası placeholder güncellemesi
         document.getElementById('phone-number').addEventListener('focus', function() {
